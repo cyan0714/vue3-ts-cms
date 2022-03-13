@@ -4,6 +4,7 @@
     <router-link to="/">登录</router-link>
     <router-link to="/main">首页</router-link>
     <router-view></router-view>
+    <el-button type="success">许嵩</el-button>
   </div>
 </template>
 
