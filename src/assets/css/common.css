@@ -1,0 +1,66 @@
+/**
+ * 文字超出 1 行省略号表示
+ */
+.single-row-ellip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/**
+ * 文字超出 2 行省略号表示
+ */
+.double-row-ellip {
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /*需要显示的行数*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/**
+ * 水平垂直居中
+ */
+.flex-xy-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/**
+ * 水平居中
+ */
+.flex-x-center {
+  display: flex;
+  justify-content: center;
+}
+
+/**
+ * 垂直居中
+ */
+.flex-y-center {
+  display: flex;
+  align-items: center;
+}
+
+/**
+ * 两端对齐且垂直居中
+ */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/**
+ * 清除浮动
+ */
+.clearfix::after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: ' ';
+  clear: both;
+  height: 0;
+}
