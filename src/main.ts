@@ -33,18 +33,18 @@ createApp(App).use(router).use(store).use(ElementPlus).mount('#app')
 //     console.log(res.success)
 //   })
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
+// interface DataType {
+//   data: any
+//   returnCode: string
+//   success: boolean
+// }
 
-myRequest
-  .get<DataType>({
-    url: '/home/multidata'
-  })
-  .then(res => {
-    console.log(res.data)
-    console.log(res.returnCode)
-    console.log(res.success)
-  })
+// myRequest
+//   .get<DataType>({
+//     url: '/home/multidata'
+//   })
+//   .then(res => {
+//     console.log(res.data)
+//     console.log(res.returnCode)
+//     console.log(res.success)
+//   })
