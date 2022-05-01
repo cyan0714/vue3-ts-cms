@@ -6,10 +6,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import LoginPanel from './cpns/login-panel.vue'
+import LoginPanel from './components/login-panel.vue'
 
 export default defineComponent({
-  name: 'loginPage',
   components: {
     LoginPanel
   },

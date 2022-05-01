@@ -2,13 +2,18 @@
 import MyRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
 
+import localCache from '@/utils/cache'
 const myRequest = new MyRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   // 实例拦截器
   interceptors: {
-    requestInterceptor: config => {
-      // console.log('某实例请求成功的拦截')
+    requestInterceptor: (config: any) => {
+      // 携带token的拦截
+      const token = localCache.getCache('token')
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
       return config
     },
     requestInterceptorCatch: err => {
