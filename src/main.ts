@@ -1,50 +1,22 @@
 import { createApp } from 'vue'
 import './assets/css/index.css'
-import myRequest from './service'
 
 import App from './App.vue'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import router from './router'
 import store from './store'
+import { setupStore } from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-createApp(App).use(router).use(store).use(ElementPlus).mount('#app')
+const app = createApp(App)
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 
-// myRequest
-//   .request({
-//     url: '/home/multidata',
-//     method: 'GET',
-//     headers: {},
-//     interceptors: {
-//       requestInterceptor: (config: any) => {
-//         console.log('单独请求的config')
-//         config.headers['token'] = '123'
-//         return config
-//       },
-//       responseInterceptor: res => {
-//         console.log('单独响应的response')
-//         return res
-//       }
-//     }
-//   })
-//   .then((res: any) => {
-//     console.log(res.data)
-//     console.log(res.returnCode)
-//     console.log(res.success)
-//   })
+app.use(ElementPlus)
+app.use(router)
+app.use(store)
+setupStore()
 
-// interface DataType {
-//   data: any
-//   returnCode: string
-//   success: boolean
-// }
-
-// myRequest
-//   .get<DataType>({
-//     url: '/home/multidata'
-//   })
-//   .then(res => {
-//     console.log(res.data)
-//     console.log(res.returnCode)
-//     console.log(res.success)
-//   })
+app.mount('#app')
