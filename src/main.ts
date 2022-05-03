@@ -10,13 +10,15 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 const app = createApp(App)
+
+// 加载图标
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
 app.use(ElementPlus)
-app.use(router)
 app.use(store)
 setupStore()
+app.use(router)
 
 app.mount('#app')
