@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { globalRegister } from './global'
 import './assets/css/index.css'
 
 import App from './App.vue'
@@ -17,6 +18,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.use(ElementPlus)
+// 注册element-plus/其他
+app.use(globalRegister)
 app.use(store)
 setupStore()
 app.use(router)
