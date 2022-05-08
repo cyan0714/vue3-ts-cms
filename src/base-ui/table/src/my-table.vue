@@ -64,7 +64,7 @@ export default defineComponent({
     },
     propList: {
       type: Array as PropType<IMyTable[]>,
-      required: true
+      default: () => []
     },
     showIndexColumn: {
       type: Boolean,

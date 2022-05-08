@@ -13,10 +13,10 @@
         </el-button>
       </template>
       <template #createAt="scope">
-        <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
+        <span>{{ proxy ? proxy['$filters'].formatTime(scope.row.createAt) : '' }}</span>
       </template>
       <template #updateAt="scope">
-        <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
+        <span>{{ proxy ? proxy['$filters'].formatTime(scope.row.updateAt) : '' }}</span>
       </template>
       <template #handler>
         <div class="handle-btns">
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch } from 'vue'
+import { defineComponent, computed, ref, watch, getCurrentInstance, ComponentInternalInstance } from 'vue'
 import { useStore } from '@/store'
 import { usePermission } from '@/hooks/use-permission'
 
@@ -57,6 +57,7 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const { proxy } = getCurrentInstance() as ComponentInternalInstance
     const store = useStore()
 
     // 0.获取操作的权限
@@ -104,7 +105,8 @@ export default defineComponent({
       otherPropSlots,
       isCreate,
       isUpdate,
-      isDelete
+      isDelete,
+      proxy
     }
   }
 })

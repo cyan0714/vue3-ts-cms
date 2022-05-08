@@ -9,5 +9,5 @@ export function usePageSearch() {
   const handleQueryClick = (queryInfo: any): void => {
     pageContentRef.value?.getPageData(queryInfo)
   }
-  return [pageContentRef, handleResetClick, handleQueryClick]
+  return { pageContentRef, handleResetClick, handleQueryClick }
 }

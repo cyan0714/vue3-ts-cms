@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
@@ -27,7 +27,7 @@ export default defineComponent({
     PageContent
   },
   setup() {
-    const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
+    const { pageContentRef, handleResetClick, handleQueryClick } = usePageSearch()
 
     return {
       searchFormConfig,
