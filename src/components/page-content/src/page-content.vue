@@ -3,7 +3,7 @@
     <hy-table :listData="dataList" :listCount="dataCount" v-bind="contentTableConfig" v-model:page="pageInfo">
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
-        <el-button v-if="isCreate" type="primary" size="small">新建用户</el-button>
+        <el-button v-if="isCreate" type="primary" size="small" @click="handleNewClick">新建用户</el-button>
       </template>
 
       <!-- 2.列中的插槽 -->
@@ -18,10 +18,19 @@
       <template #updateAt="scope">
         <span>{{ proxy ? proxy['$filters'].formatTime(scope.row.updateAt) : '' }}</span>
       </template>
-      <template #handler>
+      <template #handler="scope">
         <div class="handle-btns">
-          <el-button v-if="isUpdate" icon="el-icon-edit" size="small" type="text">编辑</el-button>
-          <el-button v-if="isDelete" icon="el-icon-delete" size="small" type="text">删除</el-button>
+          <el-button v-if="isUpdate" icon="el-icon-edit" size="small" type="text" @click="handleEditClick(scope.row)">
+            编辑
+          </el-button>
+          <el-button
+            v-if="isDelete"
+            icon="el-icon-delete"
+            size="small"
+            type="text"
+            @click="handleDeleteClick(scope.row)"
+            >删除</el-button
+          >
         </div>
       </template>
 
@@ -56,7 +65,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ['newBtnClick', 'editBtnClick'],
+  setup(props, { emit }) {
     const { proxy } = getCurrentInstance() as ComponentInternalInstance
     const store = useStore()
 
@@ -97,6 +107,22 @@ export default defineComponent({
       return true
     })
 
+    // 5.删除/编辑/新建操作
+    const handleDeleteClick = (item: any) => {
+      console.log(item)
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
+    const handleNewClick = () => {
+      console.log('hhh')
+      emit('newBtnClick')
+    }
+    const handleEditClick = (item: any) => {
+      emit('editBtnClick', item)
+    }
+
     return {
       dataList,
       getPageData,
@@ -106,7 +132,10 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
-      proxy
+      proxy,
+      handleDeleteClick,
+      handleNewClick,
+      handleEditClick
     }
   }
 })

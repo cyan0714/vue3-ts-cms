@@ -2,19 +2,48 @@ import { createStore, Store, useStore as useVuexStore } from 'vuex'
 
 import login from './login/login'
 import system from './main/system/system'
+
+import { getPageListData } from '@/service/main/system/system'
+
 import { IRootState, IStoreType } from './types'
 
 const store = createStore<IRootState>({
   state: () => {
     return {
       name: 'cyan',
-      age: 20
-      // height: 176
+      age: 20,
+      entireDepartment: [],
+      entireRole: []
     }
   },
-  mutations: {},
+  mutations: {
+    changeEntireDepartment(state, list) {
+      state.entireDepartment = list
+    },
+    changeEntireRole(state, list) {
+      state.entireRole = list
+    }
+  },
   getters: {},
-  actions: {},
+  actions: {
+    async getInitialDataAction({ commit }) {
+      // 1.请求部门和角色数据
+      const departmentResult = await getPageListData('/department/list', {
+        offset: 0,
+        size: 1000
+      })
+      const { list: departmentList } = departmentResult.data
+      const roleResult = await getPageListData('/role/list', {
+        offset: 0,
+        size: 1000
+      })
+      const { list: roleList } = roleResult.data
+
+      // 2.保存数据
+      commit('changeEntireDepartment', departmentList)
+      commit('changeEntireRole', roleList)
+    }
+  },
   modules: {
     login,
     system
